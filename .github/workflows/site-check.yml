@@ -1,0 +1,47 @@
+name: Site check
+
+# Opens every page in a headless browser and checks for broken links,
+# page errors, phone layout problems and the text Google's OAuth review needs.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "17 6 * * 1"   # every Monday 06:17 UTC, checks the live site
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Playwright
+        run: |
+          pip install playwright==1.48.0
+          python -m playwright install --with-deps chromium
+
+      - name: Check this version of the site (local copy)
+        if: github.event_name != 'schedule'
+        run: |
+          python -m http.server 8000 &
+          sleep 2
+          python tests/site_check.py http://localhost:8000
+
+      - name: Check the live site
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: python tests/site_check.py
+
+      - name: Save screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-check-screenshots
+          path: site-check-screenshots/
+          retention-days: 14
