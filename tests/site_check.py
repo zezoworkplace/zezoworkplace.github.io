@@ -27,6 +27,8 @@ from playwright.sync_api import sync_playwright
 LIVE = "https://zezoworkplace.github.io"
 BASE = (sys.argv[1] if len(sys.argv) > 1 else LIVE).rstrip("/")
 PAGES = ["/", "/privacy.html"]
+# Files search engines read; each must load.
+SEO_FILES = ["/robots.txt", "/sitemap.xml"]
 
 # Text each page must contain (lower case).
 MUST_CONTAIN = {
@@ -138,6 +140,11 @@ def main():
                         problems.append(f"{path}: broken link {href} ({status})")
                 page.close()
         browser.close()
+
+    for path in SEO_FILES:
+        ok, status = link_works(BASE + path)
+        if not ok:
+            problems.append(f"{path}: file did not load ({status})")
 
     print(f"Checked {len(PAGES)} pages and {len(checked_links)} links on {BASE}")
     if problems:
