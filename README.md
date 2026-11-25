@@ -21,7 +21,7 @@ If you add a page, add it to `sitemap.xml` and to `PAGES` in `tests/site_check.p
 
 ## Design
 
-The home page is styled with [daisyUI](https://github.com/saadeghi/daisyui) (MIT, © 2020 Pouya Saadeghi),
-loaded as one pinned CSS file from the jsDelivr CDN. No build step and no JavaScript. The `integrity`
-hash makes the browser refuse the file if it ever changes. To upgrade, change the version in
-`index.html` and update the hash. The layout uses direction-aware CSS, so it also works right-to-left (`dir="rtl"`).
+The home page is styled with [Basecoat](https://github.com/hunvreus/basecoat) (MIT, © 2025 Ronan Berder),
+shadcn/ui-style components for plain HTML. It loads as one pinned CSS file from the jsDelivr CDN, with no build step
+and no JavaScript. The `integrity` hash makes the browser refuse the file if it ever changes. To upgrade, change the
+version in `index.html` and update the hash. The layout uses direction-aware CSS, so it also works right-to-left (`dir="rtl"`).

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,62 +12,62 @@
 <meta property="og:description" content="Private client-side encrypted backup utility using limited Google Drive authorization.">
 <meta property="og:url" content="https://zezoworkplace.github.io/">
 <meta name="twitter:card" content="summary">
-<!-- Styles: daisyUI 5.7.50 (https://github.com/saadeghi/daisyui, MIT, (c) 2020 Pouya Saadeghi).
-     Loaded as one pinned CSS file from the jsDelivr CDN: no build step, no JavaScript.
-     The integrity hash makes the browser refuse the file if it is ever changed. -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@5.7.50/daisyui.css"
-      integrity="sha384-UwBu1IAWgb8nYSKlFTAgsMdqElJVcwjO1O31z47tHuvyhJ4rgjfif927I0JH2zI1" crossorigin="anonymous">
+<!-- Styles: Basecoat 1.1.0 (https://github.com/hunvreus/basecoat, MIT, (c) 2025 Ronan Berder),
+     shadcn/ui-style components for plain HTML. Loaded as one pinned CSS file from the jsDelivr CDN:
+     no build step, no JavaScript. The integrity hash makes the browser refuse the file if it is ever changed. -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/basecoat-css@1.1.0/dist/basecoat.cdn.min.css"
+      integrity="sha384-pGk605ml41MkC5v6mwKQprSH7YgU5ZhqFrTH+liRoLfHsuOg7bGreN2+Dcb63/Ur" crossorigin="anonymous">
 <style>
-/* Page layout only; components come from daisyUI. Logical properties (inline/block)
+/* Page layout only; components come from Basecoat. Logical properties (inline/block)
    keep the layout correct when the page is set to right-to-left (dir="rtl"). */
 :root{--page:840px}
-body{background:var(--color-base-200);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.66}
+body{background:var(--muted);color:var(--foreground);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.66}
 .wrap{max-width:var(--page);margin-inline:auto;padding-inline:22px}
-header.navbar{max-width:var(--page);margin-inline:auto;padding-block:14px}
-header nav{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+header.wrap nav{display:flex;flex-wrap:wrap;gap:4px;align-items:center;padding-block:14px}
 main.wrap{padding-block-end:24px}
-.card-body{padding:clamp(24px,5vw,52px);gap:0}
-h1{font-size:clamp(30px,4vw,42px);line-height:1.2;font-weight:800;margin-block:14px 15px}
-h2{font-size:21px;line-height:1.3;font-weight:700;margin-block:30px 10px}
+.card{padding:0;gap:0}
+.card>section{padding:clamp(24px,5vw,52px)}
+h1{font-size:clamp(30px,4vw,42px);line-height:1.2;font-weight:800;letter-spacing:-.02em;margin-block:14px 15px}
+h2{font-size:21px;line-height:1.3;font-weight:650;letter-spacing:-.01em;margin-block:30px 10px}
 p{font-size:16px;margin-block:0 14px}
-.lead{font-size:19px;color:color-mix(in oklab,var(--color-base-content) 72%,transparent)}
-.small{font-size:14px;color:color-mix(in oklab,var(--color-base-content) 68%,transparent)}
-code{overflow-wrap:anywhere;font-size:.92em;background:var(--color-base-200);padding:1px 6px;border-radius:6px}
-.steps-vertical .step{text-align:start;font-size:16px;min-height:4.2rem}
-.alert{margin-block:24px;align-items:start;color:var(--color-base-content);border-inline-start:3px solid var(--color-info)}
-.link:focus-visible,.btn:focus-visible{outline:3px solid var(--color-primary);outline-offset:3px}
-footer.wrap{padding-block:22px;font-size:13px;color:color-mix(in oklab,var(--color-base-content) 68%,transparent)}
-@media(max-width:650px){header.navbar{padding-block:8px}}
+.lead{font-size:19px;color:var(--muted-foreground)}
+.small{font-size:14px;color:var(--muted-foreground)}
+code{overflow-wrap:anywhere;font-family:var(--font-mono);font-size:.9em;background:var(--muted);padding:1px 6px;border-radius:6px}
+article a{text-decoration:underline;text-underline-offset:3px}
+article a:focus-visible{outline:3px solid var(--ring);outline-offset:3px;border-radius:2px}
+ol.steps{list-style:none;padding:0;margin:0 0 6px;counter-reset:step}
+ol.steps li{counter-increment:step;position:relative;padding-inline-start:44px;padding-block-end:16px;font-size:16px}
+ol.steps li::before{content:counter(step);position:absolute;inset-inline-start:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--primary);color:var(--primary-foreground);font-size:14px;font-weight:600;display:grid;place-items:center}
+ol.steps li:not(:last-child)::after{content:"";position:absolute;inset-inline-start:13.5px;top:32px;bottom:4px;width:1px;background:var(--border)}
+.alert{margin-block:24px}
+footer.wrap{padding-block:22px;font-size:13px;color:var(--muted-foreground)}
 </style>
 </head>
 <body>
-<header class="navbar">
-  <nav aria-label="Main navigation">
-    <a class="btn btn-ghost text-base" href="https://zezoworkplace.github.io/">AUREUS Secure Backup</a>
-    <a class="btn btn-ghost btn-sm" href="https://zezoworkplace.github.io/privacy.html">Privacy policy</a>
-  </nav>
+<header class="wrap">
+<nav aria-label="Main navigation"><a class="btn" data-variant="ghost" href="https://zezoworkplace.github.io/">AUREUS Secure Backup</a><a class="btn" data-variant="ghost" data-size="sm" href="https://zezoworkplace.github.io/privacy.html">Privacy policy</a></nav>
 </header>
 <main class="wrap">
-<article class="card bg-base-100 border border-base-300 shadow-sm">
-<div class="card-body">
-<div><span class="badge badge-primary badge-outline">Private-use utility</span></div>
+<article class="card">
+<section>
+<span class="badge" data-variant="outline">Private-use utility</span>
 <h1>AUREUS Secure Backup</h1>
 <p class="lead">A private tool for creating encrypted, off-site backup copies of files under the account holder's control.</p>
 <p>AUREUS Secure Backup is intended for authorized, single-account use. It uses Google Drive to store backup copies created by its administrator. It is not a public file-storage product, and it does not provide public registration or access to backup contents.</p>
 <h2>How it works</h2>
-<ol class="steps steps-vertical">
-<li class="step step-primary">The administrator selects approved local backup files.</li>
-<li class="step step-primary">When enabled, files and filenames will be encrypted on the administrator’s system before upload using Rclone Crypt.</li>
-<li class="step step-primary">After setup and authorization, encrypted copies will be stored within the authorized Google Drive account and can be retrieved for recovery by the administrator.</li>
+<ol class="steps">
+<li>The administrator selects approved local backup files.</li>
+<li>When enabled, files and filenames will be encrypted on the administrator’s system before upload using Rclone Crypt.</li>
+<li>After setup and authorization, encrypted copies will be stored within the authorized Google Drive account and can be retrieved for recovery by the administrator.</li>
 </ol>
 <h2>Google Drive permissions</h2>
 <p>The utility requests the Google Drive <code>drive.file</code> permission. This allows access to files that the application creates or that the account holder explicitly authorizes for the application. It does not request unrestricted access to unrelated existing Google Drive files. Authorized files may be created, listed, retrieved, updated or deleted as required for backup management and recovery.</p>
 <h2>Security and privacy</h2>
 <p>The planned backup workflow encrypts backup contents before transmission to Google Drive. Automated cloud backups are not yet active. Encryption credentials are retained under the administrator's control. Google Drive may still process account and storage metadata, such as file sizes and timestamps. Only the authorized account holder controls the backup workflow.</p>
-<div class="alert alert-info alert-soft" role="note"><span><strong>Not a public service.</strong> This page is provided to explain the private utility and its Google Drive authorization. No data or backup files are made available through this website.</span></div>
-<p><strong>Privacy information:</strong> See the <a class="link link-primary" href="https://zezoworkplace.github.io/privacy.html">AUREUS Secure Backup Privacy Policy</a> for details about access, use, retention and deletion of Google user data.</p>
-<p class="small">Contact: <a class="link" href="https://github.com/zezoworkplace/zezoworkplace.github.io/issues">the project’s GitHub issue tracker</a> (public; do not post personal or confidential information)</p>
-</div>
+<div class="alert" role="note"><strong>Not a public service.</strong><section>This page is provided to explain the private utility and its Google Drive authorization. No data or backup files are made available through this website.</section></div>
+<p><strong>Privacy information:</strong> See the <a href="https://zezoworkplace.github.io/privacy.html">AUREUS Secure Backup Privacy Policy</a> for details about access, use, retention and deletion of Google user data.</p>
+<p class="small">Contact: <a href="https://github.com/zezoworkplace/zezoworkplace.github.io/issues">the project’s GitHub issue tracker</a> (public; do not post personal or confidential information)</p>
+</section>
 </article>
 </main>
 <footer class="wrap">Information about a private-use utility. Published using GitHub Pages. No public signup is offered.</footer>
